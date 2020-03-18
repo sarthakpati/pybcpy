@@ -1,7 +1,7 @@
 
 # pybackup - pybcpy
 
-`pybcpy - python backup copy` is a simple file based backup copy tool for creating differential backups.
+`pybcpy - python backup copy` is a simple but powerfull file based backup copy tool for creating differential backups.
 
 file differences are identified by using SHA512 algorithm, instead of comparing date and size.
 
@@ -18,7 +18,7 @@ Platform indepentend. Tested on Python3, and Linux
 
 Alpha state, use on your own risk!!!
 
-Experimental prototype for evaluating the further efforts of a simple backup tool
+Experimental prototype for evaluating the further efforts of a backup tool
 
 
 ## Limitations
@@ -39,7 +39,7 @@ Experimental prototype for evaluating the further efforts of a simple backup too
 
 ## Support and Donnation
 
-if you like the tool and want to support the next step, or buy me a coffee - please make a donation:
+if you like the tool and want to support the next version, or buy me a coffee - please make a donation:
 
 EURO | USD |
 -----|-----|
@@ -56,14 +56,15 @@ EURO | USD |
  installing this software on private systems as part of a business service falls under this section.
  using in-house, or as part of a ASP service falls under this section.
  individual users like freelancers, or doing other kind of business falls under this section.
- NOGs, and other organizations falls under this section.
+ NGOs, Universities, and other organizations falls under this section.
  for evaluation purposes a free 30 days period is granted.
  
 please send me an email (k.r.goger+pybcpy.license@gmail.com) to get an offer,
-or clarify license related questions.
+or clarify license related questions. 
  
 for general license information refer to the pybcpy github repo under (https://github.com/kr-g/pybcpy/), or (https://github.com/kr-g/pybcpy/blob/master/LICENSE)
 
+free software is _not_ free beer. i m self-employed as freelancer and need to live from that money. 
 
 ## cmd line usage
 
