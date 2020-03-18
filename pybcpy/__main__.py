@@ -11,7 +11,7 @@ from .file_utils import *
 from .diff_bak_copy import DiffBackup, REPO_EXT
 
 
-VERSION = "0.0.6"
+VERSION = "0.0.7"
 VERSION_add = "this software is in alpha state. refer homepage on github for more"
 
 
