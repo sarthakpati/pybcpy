@@ -7,6 +7,7 @@ lib/
 lib64
 share/
 **/__pycache__/
+**/*.pyc
 *.egg-info
 pyvenv.cfg
 

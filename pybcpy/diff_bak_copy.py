@@ -494,3 +494,28 @@ class DiffBackup(PrintInfo):
             self.print_v( f"remove {rm_path} done" )        
         return to_del
     
+    def _get_diff_bs(self, baknam, bak_section ):
+        try:
+            bs = self.read_backup_summary( os.path.join( self.diffpath, baknam, bak_section ) )
+        except:
+            bs = None
+        return bs
+    
+    def _get_del_dir(self, baknam ):
+        try:
+            with open( os.path.join( self.diffpath, baknam, DELETED_DIR ) ) as f:
+                bs = f.read().splitlines()
+        except:
+            bs = None
+        return bs
+        
+            
+    def get_diff_bsets(self, baknam):
+        changed = self._get_diff_bs( baknam, CHANGED )        
+        created = self._get_diff_bs( baknam, CREATED )   
+        deleted = self._get_diff_bs( baknam, DELETED ) 
+        deleteddir = self._get_del_dir( baknam ) 
+        
+        return created, changed, deleted, deleteddir
+        
+        

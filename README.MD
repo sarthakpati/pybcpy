@@ -104,6 +104,9 @@ some commonly used samples
     
     python3 -m pybcpy -repo 'target-repo' list
     
+    # list the changes in the last backup
+    python3 -m pybcpy -repo 'target-repo' list 0 
+    
     python3 -m pybcpy -repo 'target-repo' clean -keep 30
     
 ## hints

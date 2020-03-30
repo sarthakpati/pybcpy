@@ -11,7 +11,7 @@ from .file_utils import *
 from .diff_bak_copy import DiffBackup, REPO_EXT
 
 
-VERSION = "0.0.7"
+VERSION = "0.0.8"
 VERSION_add = "this software is in alpha state. refer homepage on github for more"
 
 
@@ -95,11 +95,36 @@ def cmd_bak(args):
     else:
         print( f"backup {diffbaknam} with {numfiles} files done in {duration} sec" )
 
+def _cmd_list_print( sec, bs, full ):
+    if bs != None:
+        for b in bs:
+            if not full:
+                print(sec, b)
+            else:
+                print(sec, b,bs[b])
+
 def cmd_list(args):
     dbak = get_dbak_from_repo( args )
-    baks = dbak.get_bak_list( args.full )
-    for b in baks:
-        print( b )
+    if args.index == None:
+        baks = dbak.get_bak_list( args.full )
+        idx = 0
+        for b in baks:
+            print( idx, "->", b )
+            idx += 1
+    else:
+        try:
+            baks = dbak.get_bak_list( False )
+            bak = baks[args.index]
+            print( "-" * 7 )
+            print( "listing", bak )
+            print( "-" * 7 )
+            created, changed, deleted, deleteddir = dbak.get_diff_bsets( bak )
+            _cmd_list_print( "created", created, args.full )
+            _cmd_list_print( "changed", changed, args.full)
+            _cmd_list_print( "deleted", deleted, args.full )
+            _cmd_list_print( "deleteddir", deleteddir, False )
+        except:
+            raise Exception("diff backup not found. check index number")
 
 def cmd_clean(args):
     dbak = get_dbak_from_repo( args )
@@ -154,6 +179,7 @@ def main_func():
     
     parser_list = subparsers.add_parser('list', help='list the available backups' )
     parser_list.add_argument('-f', '--full', action="store_true", help='display more information', default=False )
+    parser_list.add_argument('index', type=int, help='display diff-bak, given as index number, default: %(default)s)', nargs='?', default=None )
     parser_list.set_defaults(func=cmd_list)
     
     parser_clean = subparsers.add_parser('clean', help='cleans the backup by removing older backups' )
