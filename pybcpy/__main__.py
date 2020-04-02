@@ -8,11 +8,13 @@ import argparse
 import logging
 
 from .file_utils import *
-from .diff_bak_copy import DiffBackup, REPO_EXT
+from .diff_bak_copy import DiffBackup, REPO_EXT, DIFF_FILES
 
 
-VERSION = "0.0.9"
+VERSION = "0.0.10a"
 VERSION_add = "this software is in alpha state. refer homepage on github for more"
+
+BAK_NAME_ENV = "%BAK_NAME"
 
 
 class DirectoryClashException(Exception):
@@ -62,6 +64,7 @@ def cmd_init(args):
                 = dbak.init_backup_repo( tarmode = args.tar )
     print( f"init done for {numfiles} files, total diskspace {memused} bytes in {total_time} sec, hashing {hash_time} sec" )
 
+
 def cmd_stat(args):
     dbak = get_dbak_from_repo( args )
     bak_dict_all, read_bak_info, changed, deleted, created, \
@@ -76,6 +79,7 @@ def cmd_stat(args):
     print("created objetcs", len( created ))
     for f in created:
         print( f )
+
 
 def cmd_bak(args):
     dbak = get_dbak_from_repo( args )
@@ -94,6 +98,7 @@ def cmd_bak(args):
             }))
     else:
         print( f"backup {diffbaknam} with {numfiles} files done in {duration} sec" )
+
 
 def _cmd_list_print( sec, bs, full ):
     if bs != None:
@@ -126,12 +131,90 @@ def cmd_list(args):
         except:
             raise Exception("diff backup not found. check index number")
 
+
+def cmd_restore(args):
+    dbak = get_dbak_from_repo( args )
+    all = {}
+    src_path = None
+    idx = args.version if args.version != None else "-"   
+    bak_repl = ""
+        
+    if idx == "-":
+        read_bak_info = dbak.read_backup_summary()
+        all.update( read_bak_info )
+        src_path = dbak.repofull
+        bak = "<repo>"
+    else:
+        try:
+            idx = int(idx)
+            baks = dbak.get_bak_list( False )
+            bak = baks[idx]
+            bak_repl = bak
+        except:
+            raise Exception( f"diff backup {args.version} not found. check index number")
+        
+        created, changed, deleted, _deleteddir = dbak.get_diff_bsets( bak )
+#        if created != None:
+#            all.update( created )
+        if changed != None:
+            all.update( changed )
+        if deleted != None:
+            all.update( deleted )
+            
+        src_path = os.path.join( dbak.diffpath, bak, DIFF_FILES )
+
+    print( "-" * 7 )
+    print( "restore from", bak )
+    print( "-" * 7 )
+    
+    fnam = args.file[0]
+    if fnam[0] == os.sep:
+        fnam = fnam[1:]
+    fullnam = fnam
+    if fullnam[0] != os.sep:
+        fullnam = os.path.join( os.sep, fnam )
+    
+    bi = None
+    try:
+        bi = all[fullnam]
+        print( "found", fnam, bi )
+    except:
+        if fullnam in created:
+            raise Exception( f"file {fullnam} was created as new file in backup set, not possible to restore" )
+        raise Exception( f"file {fullnam} not found in backup" )
+    
+    ## todo check sha before copy
+    
+    fullpath = os.path.join( src_path, fnam )
+    
+    dest_path = args.dest.replace( BAK_NAME_ENV, bak_repl )
+    dest_path = os.path.expanduser( dest_path )
+    dest_path = os.path.abspath( os.path.expandvars( dest_path ) )
+    dest_path = os.path.join( dest_path, fnam )
+    
+    if args.verbose:
+        print( f"copy {fullpath} -> {dest_path}" )
+        
+    if dest_path.find( dbak.srcpath ) == 0:
+        raise DirectoryClashException("can not restore to repo")
+      
+    if args.simulate:
+        return
+
+    ensure_dest_dir( dest_path )
+    shutil.copy2( fullpath, dest_path )
+    
+    if args.verbose:
+        print( f"done {dest_path}" )
+    
+
 def cmd_clean(args):
     dbak = get_dbak_from_repo( args )
     del_dirs = dbak.cleanup(args.keep)
     print( "cleaned ", len(del_dirs) )
     for d in del_dirs:
         print( d )
+
 
 def cmd_repair(args):
     dbak = get_dbak_from_repo( args )
@@ -142,7 +225,7 @@ def cmd_repair(args):
 
 def main_func():
  
-    parser = argparse.ArgumentParser(prog='pybcpy', usage='python3 -m %(prog)s [options] command [cmd-options] ',
+    parser = argparse.ArgumentParser(prog='pybcpy', usage='python3 -m %(prog)s [options]',
             description="""backup copy - utility for creating differential backups
             """,
             epilog="""for more information refer to https://github.com/kr-g/%(prog)s
@@ -158,7 +241,7 @@ def main_func():
     parser.add_argument("-D", "--debug", dest='debug', action="store_true", \
                         help="show debug info", default=False )
 
-    parser.add_argument("-p", "--pool", action="store", help="number of parallel processes to run where appicable", default=-1 )
+    parser.add_argument("-p", "--pool", action="store", help="number of parallel processes to run where aplicable", default=-1 )
 
     parser.add_argument("-repo", action="store", help='repo path where backup is stored, (default: %(default)s)', default="." )
 
@@ -182,6 +265,13 @@ def main_func():
     parser_list.add_argument('index', type=int, help='display diff-bak, given as index number, default: %(default)s)', nargs='?', default=None )
     parser_list.set_defaults(func=cmd_list)
     
+    parser_restore = subparsers.add_parser('restore', help='restore file from repo/ backup' )
+    parser_restore.add_argument('file', type=str, help='file name to restore', nargs=1 )
+    parser_restore.add_argument('-version', '-ver', type=str, help='restore from diff-bak, given as version number, default: %(default)s)', nargs="?", default="-" )
+    parser_restore.add_argument('-dest', metavar="DIR", type=str, help='directory to restore to, default: %(default)s)', nargs="?", default=f"~/Downloads/{BAK_NAME_ENV}" )
+    parser_restore.add_argument('-simulate', '-sim', action="store_true", help='dry-run, dont copy, default: %(default)s)', default=False )
+    parser_restore.set_defaults(func=cmd_restore)
+    
     parser_clean = subparsers.add_parser('clean', help='cleans the backup by removing older backups' )
     parser_clean.add_argument("-k", '-keep', type=int, help='number of backups to keep, default: %(default)s)', default=30 )
     parser_clean.set_defaults(func=cmd_clean)
@@ -190,7 +280,8 @@ def main_func():
     parser_repair.set_defaults(func=cmd_repair)
 
     args = parser.parse_args()
-    #print( args ); return
+    if args.verbose:
+        print( "args", args )
     
     if args.show_version:
         print( "Version:", VERSION )
