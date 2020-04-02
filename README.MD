@@ -26,7 +26,7 @@ Experimental prototype for evaluating the further efforts of a backup tool
 - proper testing pending. if execution breaks please create an issue on github.
 - proper error messages, read exception error text properly
 - no grafical (GUI) tool available, only cmd-line.
-- no restore supported as of now.
+- ~~no restore supported as of now.~~
 - no full support of empty directories.
 - no logging to syslog.
 - no support of permission objects e.g. ACLs, or Groups.
