@@ -108,8 +108,16 @@ some commonly used samples
     # list the changes in the last backup
     python3 -m pybcpy -repo 'target-repo' list 0 
     
-    python3 -m pybcpy -repo 'target-repo' clean -keep 30
+    # restore from repo
+    python3 -m pybcpy -repo 'target-repo' restore 'your-file' -version -
     
+    # restore from repo with version number as returned by list cmd
+    python3 -m pybcpy -repo 'target-repo' restore 'your-file' -version 4
+    
+    # keep at max 30 diff backups
+    python3 -m pybcpy -repo 'target-repo' clean -keep 30
+
+
 ## hints
     
 each command offers specific help info. display with `-h` option
