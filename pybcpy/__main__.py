@@ -15,6 +15,7 @@ VERSION = "0.0.10a"
 VERSION_add = "this software is in alpha state. refer homepage on github for more"
 
 BAK_NAME_ENV = "%BAK_NAME"
+BAK_RESTORE_PRE = "repo_restore"
 
 
 class DirectoryClashException(Exception):
@@ -134,22 +135,27 @@ def cmd_list(args):
 
 def cmd_restore(args):
     dbak = get_dbak_from_repo( args )
+    
+    if dbak.tarmode:
+        raise Exception( "tar mode restore is not supported" )
+    
     all = {}
     src_path = None
     idx = args.version if args.version != None else "-"   
-    bak_repl = ""
+    bak_repl = args.prefix
         
     if idx == "-":
         read_bak_info = dbak.read_backup_summary()
         all.update( read_bak_info )
         src_path = dbak.repofull
-        bak = "<repo>"
     else:
         try:
-            idx = int(idx)
+            idx = abs(int(idx))
             baks = dbak.get_bak_list( False )
             bak = baks[idx]
-            bak_repl = bak
+            if len(bak_repl)>0:
+                bak_repl += "_" 
+            bak_repl += bak
         except:
             raise Exception( f"diff backup {args.version} not found. check index number")
         
@@ -164,7 +170,7 @@ def cmd_restore(args):
         src_path = os.path.join( dbak.diffpath, bak, DIFF_FILES )
 
     print( "-" * 7 )
-    print( "restore from", bak )
+    print( "restore from", bak_repl )
     print( "-" * 7 )
     
     fnam = args.file[0]
@@ -179,7 +185,7 @@ def cmd_restore(args):
         bi = all[fullnam]
         print( "found", fnam, bi )
     except:
-        if fullnam in created:
+        if created != None and fullnam in created:
             raise Exception( f"file {fullnam} was created as new file in backup set, not possible to restore" )
         raise Exception( f"file {fullnam} not found in backup" )
     
@@ -270,6 +276,7 @@ def main_func():
     parser_restore.add_argument('-version', '-ver', type=str, help='restore from diff-bak, given as version number, default: %(default)s)', nargs="?", default="-" )
     parser_restore.add_argument('-dest', metavar="DIR", type=str, help='directory to restore to, default: %(default)s)', nargs="?", default=f"~/Downloads/{BAK_NAME_ENV}" )
     parser_restore.add_argument('-simulate', '-sim', action="store_true", help='dry-run, dont copy, default: %(default)s)', default=False )
+    parser_restore.add_argument('-prefix', '-pre', help='restore prefix name, default: %(default)s)', default=BAK_RESTORE_PRE )
     parser_restore.set_defaults(func=cmd_restore)
     
     parser_clean = subparsers.add_parser('clean', help='cleans the backup by removing older backups' )

@@ -27,6 +27,8 @@ Experimental prototype for evaluating the further efforts of a backup tool
 - proper error messages, read exception error text properly
 - no grafical (GUI) tool available, only cmd-line.
 - ~~no restore supported as of now.~~
+- no restore from a tar-mode backup repo
+- tar mode is added as experimental feature (might be dropped in future)
 - no full support of empty directories.
 - no logging to syslog.
 - no support of permission objects e.g. ACLs, or Groups.
@@ -34,7 +36,6 @@ Experimental prototype for evaluating the further efforts of a backup tool
 - no SSH, FTP, HTTP support. use of mounted device only.
 - no support for excluding sub-directories.
 - no root directory backup support.
-- tar mode is added as experimental feature (might be dropped in future)
 
 
 ## Support and Donnation
