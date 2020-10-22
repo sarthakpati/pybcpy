@@ -9,6 +9,11 @@ pybcpy is designed to run in a multiprocessor environment. where possible the ta
 
 pybcpy is not a system recovery replacement - it deals with user data files.
 
+to backup Linux ACL information refer to new module
+[`acl-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pyacltk)
+limitation: documentation and cmd-line missing!
+
+
 
 ## Platform
 
