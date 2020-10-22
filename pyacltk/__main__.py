@@ -90,3 +90,7 @@ def main_func():
     parser.print_help()
     
 
+if __name__=="__main__":
+
+    main_func()
+

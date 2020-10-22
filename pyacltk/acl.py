@@ -32,6 +32,7 @@ class ACLinfo(object):
     def add_path(self,path):
         if path!=None:
             self.fnam = path + self.fnam
+        return self
 
     def dumps(self):
         return "\t".join( [ self.fnam,

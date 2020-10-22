@@ -27,7 +27,7 @@ class Storage(object):
         self._store(src,dest)
        
     # overload this
-    def _store( self, src, dest )
+    def _store( self, src, dest ):
         shutil.copyfile( src, dest )
     
     def restore( self, fnam ):
@@ -36,7 +36,7 @@ class Storage(object):
         self._restore( dest, src )
         
     # overload this
-    def _restore( self, dest, src )
+    def _restore( self, dest, src ):
         shutil.copyfile( dest, src )
  
  

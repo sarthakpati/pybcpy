@@ -34,7 +34,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url = f"https://github.com/kr-g/{projectname}",
-    packages=setuptools.find_packages(),    
+    packages=setuptools.find_packages(),
     keywords = 'python backup file-copy file-backup diff-backup differential-backup',
     install_requires=[],    
     classifiers=[
