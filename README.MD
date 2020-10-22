@@ -1,11 +1,13 @@
 
 # pybackup - pybcpy
 
-`pybcpy - python backup copy` is a simple but powerfull file based backup copy tool for creating differential backups.
+`pybcpy - python backup copy` is a simple but powerfull file based backup copy tool
+for creating differential backups.
 
 file differences are identified by using SHA512 algorithm, instead of comparing date and size.
 
-pybcpy is designed to run in a multiprocessor environment. where possible the tasks are executed on available cpu cores in parallel.
+pybcpy is designed to run in a multiprocessor environment. where possible the tasks
+are executed on available cpu cores in parallel.
 
 pybcpy is not a system recovery replacement - it deals with user data files.
 
@@ -51,7 +53,8 @@ Experimental prototype for evaluating the further efforts of a backup tool
 
 ## Support and Donnation
 
-if you like the tool and want to support the next version, or buy me a coffee - please make a donation:
+if you like the tool and want to support the next version,
+or buy me a coffee - please make a donation:
 
 EURO | USD |
 -----|-----|
@@ -60,9 +63,10 @@ EURO | USD |
 
 # License
 
-`pybcpy` is dual-licensed. read properly.
+`pybcpy` and `pyacltk` are dual-licensed. read properly.
 
-- private license: `pybcpy` is free for "non-commercial" individuals, except when its installed as part of an business service (read commercial license below).
+- private license: `pybcpy` is free for "non-commercial" individuals,
+ except when its installed as part of an business service (read commercial license below).
 - commercial license: all business related usage is not free of charge.
  also selling derived parts, or ports (to other Platform) of this software falls under this section.
  installing this software on private systems as part of a business service falls under this section.
@@ -74,11 +78,13 @@ EURO | USD |
 please send me an email (k.r.goger+pybcpy.license@gmail.com) to get an offer,
 or clarify license related questions. 
  
-for general license information refer to the pybcpy github repo under (https://github.com/kr-g/pybcpy/), or (https://github.com/kr-g/pybcpy/blob/master/LICENSE)
+for general license information refer to the pybcpy github repo under
+(https://github.com/kr-g/pybcpy/), or (https://github.com/kr-g/pybcpy/blob/master/LICENSE)
 
 free software is _not_ free beer. i m self-employed as freelancer and need to live from that money. 
 
-## cmd line usage 
+
+## cmd line usage pybcpy
 
     usage: python3 -m pybcpy [options] command [cmd-options] 
 
@@ -104,6 +110,14 @@ free software is _not_ free beer. i m self-employed as freelancer and need to li
       -repo REPO            repo path where backup is stored, (default: .)
 
     for more information refer to https://github.com/kr-g/pybcpy
+
+
+### hints
+    
+each command offers specific help info. display with `-h` option
+   
+    python3 -m pybcpy -repo 'target-repo' bak -h 
+
 
 ## cmd line usage acl toolkit 
 
@@ -147,12 +161,6 @@ some commonly used samples
     # keep at max 30 diff backups
     python3 -m pybcpy -repo 'target-repo' clean -keep 30
 
-
-## hints
-    
-each command offers specific help info. display with `-h` option
-   
-    python3 -m pybcpy -repo 'target-repo' bak -h 
 
 ## installation
     
