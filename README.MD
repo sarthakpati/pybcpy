@@ -9,10 +9,9 @@ pybcpy is designed to run in a multiprocessor environment. where possible the ta
 
 pybcpy is not a system recovery replacement - it deals with user data files.
 
-to backup Linux ACL information refer to new module
-[`acl-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pyacltk)
-limitation: documentation and cmd-line missing!
+to backup Linux ACL information use pyacltk (same pip package)
 
+cmd line usage of both tools described below.
 
 
 ## Platform
@@ -79,7 +78,7 @@ for general license information refer to the pybcpy github repo under (https://g
 
 free software is _not_ free beer. i m self-employed as freelancer and need to live from that money. 
 
-## cmd line usage
+## cmd line usage 
 
     usage: python3 -m pybcpy [options] command [cmd-options] 
 
@@ -105,6 +104,25 @@ free software is _not_ free beer. i m self-employed as freelancer and need to li
       -repo REPO            repo path where backup is stored, (default: .)
 
     for more information refer to https://github.com/kr-g/pybcpy
+
+## cmd line usage acl toolkit 
+
+    usage: python3 -m pyacltk [options]
+
+    acl toolkit - tool for manage ACL (access control list)
+
+    optional arguments:
+      -h, --help       show this help message and exit
+      -v, --version    show version info and exit
+      -V, --verbose    show more info
+      -src ACL_PATH    src path to files to backup ACL, default: .)
+      -repo ACL_STORE  repo path where ACL summary is stored, (default: .acl)
+      -flat            use a file as storage, default is folder storage
+      -init, -i        creates a new ACL summary
+      -update, -u      updates an existing ACL summary
+      -setacl, -s      set file ACL from ACL summary, make sure to have sufficient rights
+
+    for more information refer to pybcpy project on https://github.com/kr-g/pybcpy
 
 
 ## basic commands for setting up, and doing backups, and housekeeping

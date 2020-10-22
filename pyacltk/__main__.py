@@ -44,7 +44,8 @@ def main_func():
     group.add_argument("-update", "-u", dest='update', action="store_true", \
                         help="updates an existing ACL summary", default=False )
     group.add_argument("-setacl", "-s", dest='write', action="store_true", \
-                        help="set file ACL from ACL summary", default=False )
+                        help="set file ACL from ACL summary, make sure to have sufficient rights", \
+                       default=False )
 
 
     args = parser.parse_args()
