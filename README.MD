@@ -17,7 +17,11 @@ limitation: documentation and cmd-line missing!
 
 ## Platform
 
-Platform indepentend. Tested on Python3, and Linux
+Platform indepentend. Tested on Python3, and Linux.
+
+[`acl-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pyacltk)
+only works on Linux, or Unix, or Posix
+
 
 ## Development status
 
