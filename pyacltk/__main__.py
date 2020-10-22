@@ -2,8 +2,10 @@
 import os
 import glob
 
+import argparse
+
 from pybcpy.file_utils import examine
-from pybcpy.__main__ import VERSION
+from pybcpy.__main__ import VERSION, VERSION_add
 
 from .acl import ACLinfo
 
@@ -11,45 +13,79 @@ from .flat import ACLfile
 from .tree import ACLtree
 
 
-## todo remove
-# just sample path
-acl_path = "/home/benutzer/Bilder"
-acl_store = "/home/benutzer/Downloads/acl_list.txt"
-acl_store_dir = "/home/benutzer/Downloads/acl"
-## end-of todo remove
-
-
-def main_func_tree():
-    
-    flat = ACLfile(acl_store)
-    repo = ACLtree(acl_store_dir)
-    
-    # dont expand to original full path
-    all_acl = flat.loads(replace_path="")
-        
-    #print( all_acl )
-
-    repo.dumps(all_acl)
-
-    #print( list(loads(acl_store_dir) ))
-
-    print(repo.remove_sync(all_acl))
-    
-
 def main_func():
+ 
+    parser = argparse.ArgumentParser(prog='pyacltk', usage='python3 -m %(prog)s [options]',
+            description="""acl toolkit - tool for manage ACL (access control list) """,
+            epilog="""for more information refer to pybcpy project on
+                        https://github.com/kr-g/pybcpy
+            """
+        )
     
-    # read all acl in a directory
-    #all_acl = (map( lambda x : ACLinfo(x).read().strip_path(acl_path), examine(acl_path) ))
+    parser.add_argument("-v", "--version", dest='show_version', action="store_true", \
+                        help="show version info and exit", default=False )
 
-    repo = ACLfile(acl_store)
-    all_acl = repo.read_dir(acl_path)
+    parser.add_argument("-V", "--verbose", dest='verbose', action="store_true", \
+                        help="show more info", default=False )
 
-    repo.dumps( all_acl, acl_path )   
+    parser.add_argument('-src', type=str, dest='acl_path', \
+                        help='src path to files to backup ACL, default: %(default)s)',
+                        default="." )
+    parser.add_argument("-repo", action="store", dest='acl_store', \
+                        help='repo path where ACL summary is stored, (default: %(default)s)',
+                        default=".acl" )
 
-    all_acl = repo.loads()
+    parser.add_argument( "-flat", dest='flat', action="store_true", \
+                        help="use a file as storage, default is folder storage", default=False )
 
-    for acl in all_acl:
-        print( acl.dumps() )
-        
-    print( all_acl )
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("-init", "-i", dest='init', action="store_true", \
+                        help="creates a new ACL summary", default=False )
+    group.add_argument("-update", "-u", dest='update', action="store_true", \
+                        help="updates an existing ACL summary", default=False )
+    group.add_argument("-setacl", "-s", dest='write', action="store_true", \
+                        help="set file ACL from ACL summary", default=False )
+
+
+    args = parser.parse_args()
+    if args.verbose:
+        print( "args", args )
+
+    if args.show_version:
+        print( "Version:", VERSION )
+        print( VERSION_add )
+        return
+
+    acl_store = os.path.expanduser( args.acl_store )
+    acl_path = os.path.expanduser( args.acl_path )
+
+    repo = ACLtree(acl_store) if args.flat==False else ACLfile(acl_store)
+    
+    if args.init:
+        all_acl = repo.read_dir(acl_path)
+        if args.verbose:
+            print( "found", all_acl )
+        repo.dumps( all_acl, replace_path=acl_path )
+        return
+
+    if args.update:
+        all_acl = repo.read_dir(acl_path)
+        repo.dumps( all_acl, replace_path=acl_path )
+        removed = repo.remove_sync(all_acl)
+        if args.verbose:
+            print("removed",removed)
+        return
+
+    if args.write:
+        all_acl = repo.loads(replace_path=acl_path)
+        if args.verbose:
+            print("ACL",all_acl)
+        for acl in all_acl:
+            acl.write()
+            if args.verbose:
+                print("set",acl)
+        return
+    
+    parser.print_help()
+    
 

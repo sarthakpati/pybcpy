@@ -24,7 +24,7 @@ class ACLinfo(object):
         os.chown( self.fnam, self.uid, self.gid )
     
     def strip_path(self,path):
-        if self.fnam.index(path)==0:
+        if self.fnam.find(path)==0:
             self.fnam = self.fnam[len(path):]
             return self
         raise Exception("path not found")
@@ -41,7 +41,7 @@ class ACLinfo(object):
                           ])
     
     def loads(self, acl_info):
-        acl = acl_info.split("\t")
+        acl = acl_info.strip().split("\t")
         self.fnam = acl[0]
         self.mode = int(acl[1])
         self.mode_file = stat.filemode(self.mode)

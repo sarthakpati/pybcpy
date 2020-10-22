@@ -9,7 +9,8 @@ from .repo import ACLrepo
 class ACLfile(ACLrepo):
 
     def dumps(self,all_acl,replace_path=None,force=False):
-        fnam = os.path.expanduser( self.acl_store_dir )
+        all_acl = sorted( all_acl, key=lambda x : x.fnam.lower() )
+        fnam = self.acl_store_dir
         with open(fnam,"w") as f:
             if replace_path:
                 f.write( "#" )

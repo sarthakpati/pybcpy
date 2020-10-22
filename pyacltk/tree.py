@@ -30,8 +30,8 @@ class ACLtree(ACLrepo):
                 f.write( acl_dump )
 
     def loads( self,replace_path=None ):
-        fpath = os.path.expanduser( self.acl_store_dir )
-        files = glob.iglob( fpath + os.sep + "**" + os.sep + "acl.txt", recursive=True )
+        fnam = self.acl_store_dir + os.sep + "**" + os.sep + "acl.txt"
+        files = list(glob.iglob( fnam, recursive=True ))
         all_acl = []
         for file in files:
             with open( file ) as f:
@@ -51,7 +51,7 @@ class ACLtree(ACLrepo):
             fnam = pnam + os.sep + "acl.txt"
             print( "rm", fnam )
             os.remove( fnam )
-            print( "rm", fnam )
+            print( "rm", pnam )
             os.rmdir( pnam )
         return to_remove
     

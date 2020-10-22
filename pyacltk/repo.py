@@ -11,7 +11,7 @@ class ACLrepo(object):
     def __init__(self,acl_store_dir):
         self.acl_store_dir = os.path.expanduser( acl_store_dir )
         
-    def dumps(self, replace_path=None, force=False):
+    def dumps(self, all_acl, replace_path=None, force=False):
         raise NotImplementedError
     
     def loads(self,replace_path=None ):
@@ -23,7 +23,7 @@ class ACLrepo(object):
     def read_dir(self,acl_path):
         all_files = filter( lambda x : x.find(self.acl_store_dir)!=0, examine(acl_path) )
         all_acl = map( lambda x : ACLinfo(x).read().strip_path(acl_path), all_files )
-        return all_acl
+        return list(all_acl)
     
     
         
