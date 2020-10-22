@@ -27,6 +27,9 @@ only works on Linux, or Unix, or Posix
 
 Alpha state, use on your own risk!!!
 
+read [`CHANGELOG`](https://github.com/kr-g/pybcpy/blob/master/CHANGELOG.MD)
+for latest, or upcoming news.
+
 Experimental prototype for evaluating the further efforts of a backup tool
 
 
