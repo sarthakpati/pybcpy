@@ -164,7 +164,7 @@ some commonly used samples
 
 ## installation
     
-pybcpy is available on pypi and can be installed from there with
+all `pybcpy` tool are available on pypi and can be installed from there with
 
     python3 -m pip install pybcpy
     
