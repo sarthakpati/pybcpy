@@ -39,9 +39,10 @@ def main_func_tree():
 def main_func():
     
     # read all acl in a directory
-    all_acl = (map( lambda x : ACLinfo(x).read().strip_path(acl_path), examine(acl_path) ))
+    #all_acl = (map( lambda x : ACLinfo(x).read().strip_path(acl_path), examine(acl_path) ))
 
     repo = ACLfile(acl_store)
+    all_acl = repo.read_dir(acl_path)
 
     repo.dumps( all_acl, acl_path )   
 
