@@ -76,7 +76,7 @@ class GroupRepo(object):
             lines = f.readlines()
         lines = map(lambda x: x.strip(), lines)
         lines = filter(lambda x: len(x) > 0, lines)
-        # lines = list(lines)
+        lines = list(filter(lambda x: x.find("#") != 0, lines))
         self.groups = []
         for line in lines:
             g = Group().loads(line)
@@ -86,6 +86,7 @@ class GroupRepo(object):
 
     def write_store(self):
         with open(self.store_file, "w") as f:
+            f.write("#group <tab> user list (comma separated)\n\n")
             for g in self.groups:
                 f.write(g.dumps())
                 f.write("\n")
