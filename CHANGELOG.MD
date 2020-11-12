@@ -4,6 +4,7 @@
 ## next release v0.0.11
 
 - PEP 8
+- added (first draft) new toolkit `pyusrgrptk` for backup user group information
 - 
 
 
