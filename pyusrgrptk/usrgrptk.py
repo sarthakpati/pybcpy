@@ -103,6 +103,12 @@ class GroupRepo(object):
     def list_all(self):
         return self.groups
 
+    def list_no_member(self):
+        return list(filter(lambda x: len(x.member) == 0, self.groups))
+
+    def list_with_member(self):
+        return list(filter(lambda x: len(x.member) > 0, self.groups))
+
     def list_hierachy(self):
         hierarchy = []
         found = set()
@@ -138,6 +144,14 @@ print("--- search_for found", search_for)
 used = repo.where_used(search_for)
 
 dumps(used)
+
+print("--- group with no member")
+
+dumps(repo.list_no_member())
+
+print("--- group with member")
+
+dumps(repo.list_with_member())
 
 print("--- group", search_for)
 

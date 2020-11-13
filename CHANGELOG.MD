@@ -7,8 +7,8 @@
 - added (first draft) new toolkit `pyusrgrptk` for backup user group information
 - `pyusrgrptk` methods for searching, or listing all groups
 - hierarchy view of all groups 
+- list group with, or without member
 - 
-
 
 ## release v0.0.10
 
