@@ -1,7 +1,6 @@
 import os
 
 import grp
-import spwd
 
 
 class Group(object):
@@ -101,6 +100,27 @@ class GroupRepo(object):
     def find(self, search_for):
         return self.gmap[search_for]
 
+    def list_all(self):
+        return self.groups
+
+    def list_hierachy(self):
+        hierarchy = []
+        found = set()
+        remaining = list(map(lambda x: x.name, self.groups))
+        while len(remaining) > 0:
+            old_size = len(remaining)
+            for g in remaining:
+                m = set(self.gmap[g].member)
+                if len(m) == 0 or m.issubset(found):
+                    found.add(g)
+                    hierarchy.append(g)
+                    remaining.remove(g)
+                    # break here to keep result somehow sorted
+                    break
+            if old_size == len(remaining):
+                raise Exception("found cycle in group definition")
+        return list(map(lambda x: self.gmap[x], hierarchy))
+
 
 def dumps(l):
     for grp in l:
@@ -109,9 +129,9 @@ def dumps(l):
 
 repo = GroupRepo().read_current()
 
-dumps(repo.groups)
+dumps(repo.list_all())
 
-search_for = "sudo"
+search_for = "syslog"
 
 print("--- search_for found", search_for)
 
@@ -122,3 +142,7 @@ dumps(used)
 print("--- group", search_for)
 
 dumps([repo.find(search_for)])
+
+print("--- hierarchy")
+
+dumps(repo.list_hierachy())

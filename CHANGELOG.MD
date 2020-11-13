@@ -5,6 +5,8 @@
 
 - PEP 8
 - added (first draft) new toolkit `pyusrgrptk` for backup user group information
+- `pyusrgrptk` methods for searching, or listing all groups
+- hierarchy view of all groups 
 - 
 
 
