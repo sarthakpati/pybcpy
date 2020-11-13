@@ -37,6 +37,10 @@ class Group(object):
 
 
 class GroupRepo(object):
+
+    # class variable
+    filter_out = ["root", "nogroup"]
+
     def __init__(self, store_file=None):
         self.store_file = store_file
         if self.store_file == None:
@@ -66,6 +70,12 @@ class GroupRepo(object):
 
     def _init_internal(self):
         self.groups = sorted(self.groups, key=lambda x: x.name)
+
+        if len(self.filter_out) > 0:
+            self.groups = list(
+                filter(lambda x: x.name not in self.filter_out, self.groups)
+            )
+
         self.gmap = dict(map(lambda x: (x.name, x), self.groups))
         self.gmap_keys = sorted(self.gmap.keys())
         return self
