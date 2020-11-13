@@ -135,15 +135,9 @@ def dumps(l):
 
 repo = GroupRepo().read_current()
 
+print("--- all")
+
 dumps(repo.list_all())
-
-search_for = "syslog"
-
-print("--- search_for found", search_for)
-
-used = repo.where_used(search_for)
-
-dumps(used)
 
 print("--- group with no member")
 
@@ -153,10 +147,18 @@ print("--- group with member")
 
 dumps(repo.list_with_member())
 
-print("--- group", search_for)
-
-dumps([repo.find(search_for)])
-
 print("--- hierarchy")
 
 dumps(repo.list_hierachy())
+
+search_for = "syslog"
+
+print("--- search_for", search_for)
+
+used = repo.where_used(search_for)
+
+dumps(used)
+
+print("--- group detail", search_for)
+
+dumps([repo.find(search_for)])
