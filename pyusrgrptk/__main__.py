@@ -194,8 +194,8 @@ def main_func():
         dumps(repo.list_all(), full=args.show_detail)
 
     if args.show_hierarchy:
-        print_v("list all hierarchy. detail=", args.show_detail)
-        dumps(repo.list_hierachy(), full=args.show_detail)
+        print_v("list all hierarchy")
+        dumps(repo.list_hierachy(), full=True)
 
 
 if __name__ == "__main__":
