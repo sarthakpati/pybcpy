@@ -138,37 +138,10 @@ class GroupRepo(object):
         return list(map(lambda x: self.gmap[x], hierarchy))
 
 
-def dumps(l):
+def dumps(l, full=True):
     for grp in l:
-        print(grp.dumps())
+        if full:
+            print(grp.dumps())
+        else:
+            print(grp.name)
 
-
-repo = GroupRepo().read_current()
-
-print("--- all")
-
-dumps(repo.list_all())
-
-print("--- group with no member")
-
-dumps(repo.list_no_member())
-
-print("--- group with member")
-
-dumps(repo.list_with_member())
-
-print("--- hierarchy")
-
-dumps(repo.list_hierachy())
-
-search_for = "syslog"
-
-print("--- search_for", search_for)
-
-used = repo.where_used(search_for)
-
-dumps(used)
-
-print("--- group detail", search_for)
-
-dumps([repo.find(search_for)])
