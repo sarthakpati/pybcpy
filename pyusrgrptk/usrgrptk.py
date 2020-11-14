@@ -144,4 +144,3 @@ def dumps(l, full=True):
             print(grp.dumps())
         else:
             print(grp.name)
-

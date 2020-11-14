@@ -1,4 +1,3 @@
-
 import os
 import glob
 
@@ -9,12 +8,13 @@ from pybcpy.__main__ import VERSION, VERSION_add
 from usrgrptk import GroupRepo, dumps
 
 
-_verbose=False
+_verbose = False
+
 
 def print_v(*args):
     if _verbose:
         print(*args)
-        
+
 
 def main_func():
 
@@ -50,12 +50,24 @@ def main_func():
         default=False,
     )
 
-    parser.add_argument( "-f", "--repo", type=str, dest='repo_file', action="store",
-                        help="path where user group summary file is located (default: %(default)s)",
-                        default="~/.grpinfo" )
-    
-    parser.add_argument("-read","--read-summary", dest='read_os', action="store_false",
-                        help="read group data from summary file instead from os", default=True )
+    parser.add_argument(
+        "-f",
+        "--repo",
+        type=str,
+        dest="repo_file",
+        action="store",
+        help="path where user group summary file is located (default: %(default)s)",
+        default="~/.grpinfo",
+    )
+
+    parser.add_argument(
+        "-read",
+        "--read-summary",
+        dest="read_os",
+        action="store_false",
+        help="read group data from summary file instead from os",
+        default=True,
+    )
 
     parser.add_argument(
         "-u",
@@ -120,7 +132,6 @@ def main_func():
         default=False,
     )
 
-
     parser.add_argument(
         "--hier",
         "--hierarchy",
@@ -129,7 +140,6 @@ def main_func():
         help="show hierarchy of groups, independed groups first",
         default=False,
     )
-
 
     args = parser.parse_args()
     if args.verbose:
@@ -143,42 +153,49 @@ def main_func():
         return
 
     repo = GroupRepo(args.repo_file)
-    
-    if args.read_os==True:
+
+    if args.read_os == True:
         print_v("os read current")
         repo.read_current()
     else:
         print_v("repo read current")
         repo.from_store()
-    
-    if args.update==True and args.read_os==True:
+
+    if args.update == True and args.read_os == True:
         print_v("write repo")
         repo.write_store()
 
-    if args.filter!=None:
-        print_v("filter=",args.filter,", where-used=",args.where_used,", detail=",args.show_detail)
+    if args.filter != None:
+        print_v(
+            "filter=",
+            args.filter,
+            ", where-used=",
+            args.where_used,
+            ", detail=",
+            args.show_detail,
+        )
         used = []
         if args.where_used:
             used = repo.where_used(args.filter)
         else:
             used = [repo.find(args.filter)]
-        dumps( used, full=args.show_detail )
+        dumps(used, full=args.show_detail)
 
     if args.empty_member:
-        print_v("list groups with no member. detail=",args.show_detail)
-        dumps(repo.list_no_member(),full=args.show_detail)
+        print_v("list groups with no member. detail=", args.show_detail)
+        dumps(repo.list_no_member(), full=args.show_detail)
 
     if args.with_member:
-        print_v("list groups with member. detail=",args.show_detail)
-        dumps(repo.list_with_member(),full=args.show_detail)
+        print_v("list groups with member. detail=", args.show_detail)
+        dumps(repo.list_with_member(), full=args.show_detail)
 
     if args.show_all:
-        print_v("list all. detail=",args.show_detail)
-        dumps(repo.list_all(),full=args.show_detail)
+        print_v("list all. detail=", args.show_detail)
+        dumps(repo.list_all(), full=args.show_detail)
 
     if args.show_hierarchy:
-        print_v("list all hierarchy. detail=",args.show_detail)
-        dumps(repo.list_hierachy(),full=args.show_detail)
+        print_v("list all hierarchy. detail=", args.show_detail)
+        dumps(repo.list_hierachy(), full=args.show_detail)
 
 
 if __name__ == "__main__":
