@@ -38,7 +38,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url=f"https://github.com/kr-g/{projectname}",
     packages=setuptools.find_packages(),
-    keywords="python backup file-copy file-backup diff-backup differential-backup acl",
+    keywords="python backup file-copy file-backup diff-backup differential-backup acl groups",
     install_requires=[],
     classifiers=[
         "Development Status :: 3 - Alpha",
