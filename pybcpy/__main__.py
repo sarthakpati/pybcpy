@@ -10,7 +10,7 @@ from .file_utils import *
 from .diff_bak_copy import DiffBackup, REPO_EXT, DIFF_FILES
 
 
-VERSION = "0.0.11"
+VERSION = "0.0.12a"
 VERSION_add = "this software is in alpha state. refer homepage on github for more"
 
 BAK_NAME_ENV = "%BAK_NAME"
