@@ -13,7 +13,7 @@ _verbose = False
 
 def print_v(*args):
     if _verbose:
-        print(*args)
+        print("#", *args)
 
 
 def main_func():
@@ -115,11 +115,29 @@ def main_func():
     )
 
     parser.add_argument(
-        "-d",
-        "--detail",
+        "-nd",
+        "--no-detail",
         dest="show_detail",
-        action="store_true",
+        action="store_false",
         help="show full group detail",
+        default=True,
+    )
+
+    parser.add_argument(
+        "-nn",
+        "--no-name",
+        dest="hide_name",
+        action="store_true",
+        help="hide group name in ouput",
+        default=False,
+    )
+
+    parser.add_argument(
+        "-ml",
+        "--multi-line",
+        dest="show_multiline",
+        action="store_true",
+        help="display member in separate rows",
         default=False,
     )
 
@@ -173,25 +191,39 @@ def main_func():
             args.where_used,
             ", detail=",
             args.show_detail,
+            "hide-name",
+            args.hide_name,
+            "show_multiline",
+            args.show_multiline,
         )
         used = []
         if args.where_used:
             used = repo.where_used(args.filter)
         else:
             used = [repo.find(args.filter)]
-        dumps(used, full=args.show_detail)
+        dumps(
+            used,
+            full=args.show_detail,
+            hide_name=args.hide_name,
+            show_multiline=args.show_multiline,
+        )
 
     if args.empty_member:
-        print_v("list groups with no member. detail=", args.show_detail)
+        print_v("list groups with no member")
         dumps(repo.list_no_member(), full=args.show_detail)
 
     if args.with_member:
-        print_v("list groups with member. detail=", args.show_detail)
-        dumps(repo.list_with_member(), full=args.show_detail)
+        print_v("list groups with member")
+        dumps(
+            repo.list_with_member(),
+            full=args.show_detail,
+            hide_name=args.hide_name,
+            show_multiline=args.show_multiline,
+        )
 
     if args.show_all:
-        print_v("list all. detail=", args.show_detail)
-        dumps(repo.list_all(), full=args.show_detail)
+        print_v("list all")
+        dumps(repo.list_all(), full=args.show_detail, hide_name=args.hide_name)
 
     if args.show_hierarchy:
         print_v("list all hierarchy")
