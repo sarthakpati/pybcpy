@@ -4,7 +4,9 @@
 
 # pybackup - pybcpy
 
-`pybcpy - python backup copy` is a simple but powerfull file based backup copy tool
+`pybcpy - python backup copy` is a set of simple but powerfull file based backup tools.
+
+## `pybcpy`
 for creating differential backups.
 
 file differences are identified by using SHA512 algorithm, instead of comparing date and size.
@@ -14,20 +16,28 @@ are executed on available cpu cores in parallel.
 
 pybcpy is not a system recovery replacement - it deals with user data files.
 
+## `pyacltk`
 to backup Linux ACL information use `pyacltk - python ACL toolkit` (same pip package as pybcpy)
 
-cmd line usage of both tools described below.
+## `pyusrgrptk`
+to backup user group information
 
 
-## Platform
+cmd line usage of all tools described below.
 
-Platform indepentend. Tested on Python3, and Linux.
+
+# Platform
+
+Mostly Platform indepentend. Tested on Python3, and Linux.
 
 [`acl-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pyacltk)
 only works on Linux, or Unix, or Posix
 
+[`usergroup-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pyusrgrptk)
+only works on Linux, or Unix, or Posix
 
-## Development status
+
+# Development status
 
 Alpha state, use on your own risk!!!
 
@@ -37,7 +47,7 @@ for latest, or upcoming news.
 Experimental prototype for evaluating the further efforts of a backup tool
 
 
-## Limitations
+# Limitations
 
 - proper testing pending. if execution breaks please create an issue on github.
 - proper error messages, read exception error text properly
@@ -54,7 +64,7 @@ Experimental prototype for evaluating the further efforts of a backup tool
 - no root directory backup support.
 
 
-## Support and Donnation
+# Support and Donnation
 
 if you like the tool and want to support the next version,
 or buy me a coffee - please make a donation:
@@ -66,7 +76,7 @@ EURO | USD |
 
 # License
 
-`pybcpy` and `pyacltk` are dual-licensed. read properly.
+all included tools shipped with `pybcpy` are dual-licensed. read properly.
 
 - private license: `pybcpy` is free for "non-commercial" individuals,
  except when its installed as part of an business service (read commercial license below).
@@ -78,7 +88,7 @@ EURO | USD |
  NGOs, Universities, and other organizations falls under this section.
  for evaluation purposes a free 30 days period is granted.
  
-please send me an email (k.r.goger+pybcpy.license@gmail.com) to get an offer,
+please send me an email (k.r.goger+pybcpy.license@gmail.com) to get a quote,
 or clarify license related questions. 
  
 for general license information refer to the pybcpy github repo under
@@ -86,6 +96,8 @@ for general license information refer to the pybcpy github repo under
 
 free software is _not_ free beer. i m self-employed as freelancer and need to live from that money. 
 
+
+# cmd line summary
 
 ## cmd line usage pybcpy
 
@@ -142,6 +154,40 @@ each command offers specific help info. display with `-h` option
     for more information refer to pybcpy project on https://github.com/kr-g/pybcpy
 
 
+## cmd line usage user-group toolkit 
+
+    usage: python3 -m pyusrgrptk [options]
+
+    user group toolkit - tool for tracking user group changes output format is in
+    detail mode: <group-name> <tab> <comma-separated-user-list>. in normal mode
+    only group name is shown. IMPORTANT: pyusrgrptk cmd-line interface is quite
+    simple, but not all flag combinations make sense or produce the expected
+    output. do proper test specific use-cases.
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -v, --version         show version info and exit
+      -V, --verbose         show more info
+      -f REPO_FILE, --repo REPO_FILE
+                            path where user group summary file is located
+                            (default: ~/.grpinfo)
+      -read, --read-summary
+                            read group data from summary file instead from os
+      -u, --update          update summary file with current system group info
+      --find FILTER, --filter FILTER
+                            search filter on group
+      -em, --empty-member   list only groups with no member
+      -m, --with-member     list only groups with member
+      -wu, --where-used     search in group and member sections
+      -nd, --no-detail      show full group detail
+      -nn, --no-name        hide group name in ouput
+      -ml, --multi-line     display member in separate rows
+      -a, --all             show group detail
+      --hier, --hierarchy   show hierarchy of groups, independed groups first
+
+    for more information refer to pybcpy project on https://github.com/kr-g/pybcpy
+
+
 ## basic commands for setting up, and doing backups, and housekeeping
 
 some commonly used samples
@@ -165,9 +211,9 @@ some commonly used samples
     python3 -m pybcpy -repo 'target-repo' clean -keep 30
 
 
-## installation
+# installation
     
-all `pybcpy` tool are available on pypi and can be installed from there with
+all `pybcpy` tools are available on pypi and can be installed from there with
 
     python3 -m pip install pybcpy
     
