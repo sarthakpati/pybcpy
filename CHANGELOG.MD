@@ -3,7 +3,8 @@
 
 ## next release v0.0.12
 
--
+- fix import in cmd line `pyusrgrptk`
+- 
 
 
 ## release v0.0.11

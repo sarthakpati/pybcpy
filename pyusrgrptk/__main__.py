@@ -5,7 +5,7 @@ import argparse
 
 from pybcpy.__main__ import VERSION, VERSION_add
 
-from usrgrptk import GroupRepo, dumps
+from .usrgrptk import GroupRepo, dumps
 
 
 _verbose = False
