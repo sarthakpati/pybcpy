@@ -26,6 +26,9 @@ def main_func():
                 output format is in detail mode:
                 <group-name> <tab> <comma-separated-user-list>.
                 in normal mode only group name is shown.
+                IMPORTANT: %(prog)s cmd-line interface is quite simple,
+                but not all flag combinations make sense or produce the
+                expected output. do proper test specific use-cases.
             """,
         epilog="""for more information refer to pybcpy project on
                         https://github.com/kr-g/pybcpy
