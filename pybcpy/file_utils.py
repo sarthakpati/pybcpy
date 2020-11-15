@@ -1,7 +1,5 @@
 import os
-import stat
 import glob
-import time
 
 import hashlib
 

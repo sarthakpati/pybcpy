@@ -138,17 +138,17 @@ class GroupRepo(object):
         return list(map(lambda x: self.gmap[x], hierarchy))
 
 
-def dumps(l, full=True, hide_name=False, show_multiline=False):
-    for grp in l:
+def dumps(grplist, full=True, hide_name=False, show_multiline=False):
+    for g in grplist:
         if full:
-            print(grp.dumps())
+            print(g.dumps())
         else:
             if hide_name == True:
-                if len(grp.member) == 0:
+                if len(g.member) == 0:
                     return
                 if show_multiline == True:
-                    [print(m) for m in grp.member]
+                    [print(m) for m in g.member]
                 else:
-                    print(",".join(grp.member))
+                    print(",".join(g.member))
             else:
-                print(grp.name)
+                print(g.name)

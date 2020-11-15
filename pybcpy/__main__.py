@@ -1,13 +1,12 @@
 import os
 import stat
-import time
 import shutil
 
 import argparse
 import logging
 
-from .file_utils import *
-from .diff_bak_copy import DiffBackup, REPO_EXT, DIFF_FILES
+from .file_utils import get_file_info, ensure_dest_dir
+from .diff_bak_copy import DiffBackup, DIFF_FILES
 
 
 VERSION = "0.0.12a"
@@ -199,6 +198,7 @@ def cmd_restore(args):
 
     bi = None
     try:
+        print(fullnam)
         bi = all[fullnam]
         print("found", fnam, bi)
     except:

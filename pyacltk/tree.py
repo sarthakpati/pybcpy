@@ -1,5 +1,4 @@
 import os
-import stat
 import glob
 
 from .acl import ACLinfo
@@ -19,6 +18,7 @@ class ACLtree(ACLrepo):
                         old_acl_dump = ACLinfo().loads(f.read()).dumps()
                 except:
                     pass
+                    # print("file not found", fnam)
             acl_dump = acl.dumps()
             if old_acl_dump != None and old_acl_dump == acl_dump:
                 # print("skip", acl)

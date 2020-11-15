@@ -1,6 +1,7 @@
 import uuid
+import stat
 
-from .file_utils import *
+from .file_utils import get_file_info, get_file_hash
 
 
 class BackupFileInfo(object):

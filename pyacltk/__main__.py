@@ -1,12 +1,9 @@
 import os
-import glob
 
 import argparse
 
-from pybcpy.file_utils import examine
 from pybcpy.__main__ import VERSION, VERSION_add
-
-from .acl import ACLinfo
+from pybcpy.file_utils import get_file_exists
 
 from .flat import ACLfile
 from .tree import ACLtree
@@ -64,7 +61,7 @@ def main_func():
         default=False,
     )
 
-    group = parser.add_mutually_exclusive_group(required=True)
+    group = parser.add_mutually_exclusive_group(required=False)
     group.add_argument(
         "-init",
         "-i",
@@ -105,6 +102,10 @@ def main_func():
     repo = ACLtree(acl_store) if args.flat == False else ACLfile(acl_store)
 
     if args.init:
+
+        if get_file_exists(acl_store):
+            raise Exception("repo dir already exists")
+
         all_acl = repo.read_dir(acl_path)
         if args.verbose:
             print("found", all_acl)

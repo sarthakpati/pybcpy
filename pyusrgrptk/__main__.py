@@ -1,6 +1,3 @@
-import os
-import glob
-
 import argparse
 
 from pybcpy.__main__ import VERSION, VERSION_add

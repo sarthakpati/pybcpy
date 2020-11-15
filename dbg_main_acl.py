@@ -1,4 +1,4 @@
-from pyacltk.__main__ import *
+from pyacltk.__main__ import main_func
 
 if __name__ == "__main__":
 

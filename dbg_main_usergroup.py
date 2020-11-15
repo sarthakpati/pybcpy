@@ -1,4 +1,4 @@
-from pyusrgrptk.__main__ import *
+from pyusrgrptk.__main__ import main_func
 
 if __name__ == "__main__":
 

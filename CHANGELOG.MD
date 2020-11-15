@@ -4,6 +4,7 @@
 ## next release v0.0.12
 
 - fix import in cmd line `pyusrgrptk`
+- Flake8 introduced
 - 
 
 

@@ -12,8 +12,16 @@ from multiprocessing import Pool
 import configparser
 import logging
 
-from .backup_file_info import *
-from .tar_utils import *
+from .file_utils import (
+    get_file_exists,
+    get_file_info,
+    get_file_size,
+    ensure_dest_dir,
+    examine,
+)
+
+from .backup_file_info import BackupFileInfo
+from .tar_utils import store_file_tar
 from .print_utils import PrintInfo
 
 
@@ -124,7 +132,7 @@ class DiffBackup(PrintInfo):
             metapath = self.metapath
 
         cfgfile = os.path.join(metapath, CFG_FILE)
-        self.print_d(f"read config", cfgfile)
+        self.print_d("read config", cfgfile)
         config = configparser.ConfigParser()
         config.read(cfgfile)
         return config
@@ -471,7 +479,7 @@ class DiffBackup(PrintInfo):
             except:
                 pass  # first backup, no parent
 
-            self.print_v(f"write diff backup meta")
+            self.print_v("write diff backup meta")
 
             config = configparser.ConfigParser()
             config[CFG_BASE] = {
