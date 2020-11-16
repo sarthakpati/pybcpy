@@ -4,7 +4,7 @@
 
 # pybackup - pybcpy
 
-`pybcpy - python backup copy` is a set of simple but powerfull file based backup tools.
+`pybcpy - python backup copy` is a set of simple (but powerfull) file based backup tools.
 
 ## `pybcpy`
 for creating differential backups.
@@ -17,12 +17,13 @@ are executed on available cpu cores in parallel.
 pybcpy is not a system recovery replacement - it deals with user data files.
 
 ## `pyacltk`
-to backup Linux ACL information use `pyacltk - python ACL toolkit` (same pip package as pybcpy)
+to backup Linux ACL information
 
 ## `pyusrgrptk`
 to backup user group information
 
 
+###
 cmd line usage of all tools described below.
 
 
