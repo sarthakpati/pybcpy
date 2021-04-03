@@ -9,7 +9,7 @@ from .file_utils import get_file_info, ensure_dest_dir
 from .diff_bak_copy import DiffBackup, DIFF_FILES, CFG_ALL_FILES_Default
 
 
-VERSION = "v0.0.13"
+VERSION = "v0.0.14a"
 VERSION_add = "this software is in alpha state. refer homepage on github for more"
 
 BAK_NAME_ENV = "%BAK_NAME"
