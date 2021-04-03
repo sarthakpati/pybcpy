@@ -6,7 +6,7 @@
 -
 
 
-## next release v0.0.13
+## release v0.0.13
 
 - added "include_all" feature in config for backup also hidden "." dot-files
 - 
