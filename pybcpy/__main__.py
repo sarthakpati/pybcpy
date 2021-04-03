@@ -6,7 +6,7 @@ import argparse
 import logging
 
 from .file_utils import get_file_info, ensure_dest_dir
-from .diff_bak_copy import DiffBackup, DIFF_FILES
+from .diff_bak_copy import DiffBackup, DIFF_FILES, CFG_ALL_FILES_Default
 
 
 VERSION = "0.0.13a"
@@ -57,7 +57,9 @@ def get_dbak_from_repo(args):
 
 def get_dbak(args):
     repo, src = get_checked_dirs(args.repo, args.src)
-    dbak = DiffBackup(repo, src, verbose=args.verbose, debug=args.debug)
+    dbak = DiffBackup(
+        repo, src, verbose=args.verbose, allfiles=args.all, debug=args.debug
+    )
     set_defaults(dbak, args)
     return dbak
 
@@ -311,7 +313,14 @@ def main_func():
         type=str,
         help="src path to files to backup, default: %(default)s)",
         default=".",
-        required=True,
+        required=False,
+    )
+    parser_init.add_argument(
+        "-all",
+        action="store_true",
+        help="include also hidden files ('.',dot-files) default: %(default)s)",
+        default=CFG_ALL_FILES_Default,
+        required=False,
     )
     parser_init.add_argument(
         "-tar",

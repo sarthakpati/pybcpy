@@ -56,6 +56,8 @@ CFG_PARENT = "parent"
 CFG_DIFF_TAR = "tar"
 CFG_COMMENT = "comment"
 CFG_CREATED = "created"
+CFG_ALL_FILES = "include_hidden"
+CFG_ALL_FILES_Default = False
 # CFG_DIFF_REPO="diff-repo"
 
 DELIMITER = "\t"
@@ -72,7 +74,14 @@ class SameDirectoryException(Exception):
 
 
 class DiffBackup(PrintInfo):
-    def __init__(self, repopath, srcpath=None, verbose=False, debug=False):
+    def __init__(
+        self,
+        repopath,
+        srcpath=None,
+        verbose=False,
+        allfiles=CFG_ALL_FILES_Default,
+        debug=False,
+    ):
 
         self.setup(
             print_verbose=verbose, print_level=logging.DEBUG if debug else logging.INFO
@@ -95,11 +104,17 @@ class DiffBackup(PrintInfo):
                 srcpath = cfg[CFG_BASE][CFG_SRC]
                 tarmode = cfg[CFG_BASE][CFG_DIFF_TAR].lower() == "true"
                 repoid = cfg[CFG_BASE][CFG_REPOID]
+
+                allfiles = cfg[CFG_BASE].get(CFG_ALL_FILES, str(CFG_ALL_FILES_Default))
+                allfiles = allfiles.lower() == "true"
+
             except Exception as ex:
                 raise NoRepoDirectoryException("not found", ex)
+
         self.srcpath = srcpath
         self.repoid = repoid
         self.tarmode = tarmode
+        self.allfiles = allfiles
 
         self.pool = DEFAULT_CPU_POOL
 
@@ -149,6 +164,7 @@ class DiffBackup(PrintInfo):
             CFG_REPO: self.repopath,
             CFG_SRC: self.srcpath,
             CFG_DIFF_TAR: tarmode,
+            CFG_ALL_FILES: self.allfiles,
         }
         if add_info:
             print(add_info)
@@ -183,7 +199,7 @@ class DiffBackup(PrintInfo):
         if srcpath == None:
             srcpath = self.srcpath
 
-        ifiles = examine(srcpath)
+        ifiles = examine(srcpath, not self.allfiles)
         bak_info = []
         with Pool(self._calc_pool_size()) as p:
             bak_info.extend(p.map(self._get_backup_info, ifiles))
@@ -224,7 +240,7 @@ class DiffBackup(PrintInfo):
         os.makedirs(self.diffpath)
         os.makedirs(self.metapath)
 
-        ifiles = examine(self.srcpath)
+        ifiles = examine(self.srcpath, not self.allfiles)
         numfiles = 0
         memused = 0
         with Pool(self._calc_pool_size()) as p:

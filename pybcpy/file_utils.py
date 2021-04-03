@@ -1,5 +1,6 @@
 import os
 import glob
+import pathlib
 
 import hashlib
 
@@ -51,7 +52,19 @@ def get_file_hash(fnam, blk_size=DEFAULT_BLOCK_SIZE):
     return digest
 
 
-def examine(fpath):
+def examine(fpath, exclude_hidden=True):
     fpath = os.path.expanduser(fpath)
-    file_list = glob.iglob(fpath + os.sep + "**", recursive=True)
-    return file_list
+
+    def iter_recur_files(fpath):
+        files = os.listdir(fpath)
+        for f in files:
+            if exclude_hidden and f[0] == ".":
+                # same behaviour as glob "/**"
+                continue
+            fnam = os.path.join(fpath, f)
+            yield fnam
+            p = pathlib.Path(fnam)
+            if p.is_dir():
+                yield from iter_recur_files(fnam)
+
+    return iter_recur_files(fpath)

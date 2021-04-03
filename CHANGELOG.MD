@@ -1,9 +1,24 @@
 
 # Changelog
 
-## next release v0.0.13
+## next release v0.0.14
 
 -
+
+
+## next release v0.0.13
+
+- added "include_all" feature in config for backup also hidden "." dot-files
+- 
+
+
+## BACKLOG
+
+- quite mode
+- rework logging info, level, and behaviour
+- catch exception for intermediate deleted files during bak process
+- stats also for other tasks
+- 
 
 
 ## release v0.0.12
