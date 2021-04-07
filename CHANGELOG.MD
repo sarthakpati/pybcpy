@@ -18,6 +18,7 @@
 - rework logging info, level, and behaviour
 - catch exception for intermediate deleted files during bak process
 - stats also for other tasks
+- partial backup -> inner sub folder
 - 
 
 
