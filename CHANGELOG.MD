@@ -3,7 +3,8 @@
 
 ## next release v0.0.14
 
--
+- added `inspect` sub-cmd
+- 
 
 
 ## release v0.0.13

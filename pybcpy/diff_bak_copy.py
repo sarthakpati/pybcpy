@@ -18,6 +18,7 @@ from .file_utils import (
     get_file_size,
     ensure_dest_dir,
     examine,
+    get_file_hash,
 )
 
 from .backup_file_info import BackupFileInfo
@@ -545,6 +546,31 @@ class DiffBackup(PrintInfo):
             shutil.rmtree(rm_path, ignore_errors=True)
             self.print_v(f"remove {rm_path} done")
         return to_del
+
+    def inspect_bak(self, no_to_keep, cal_hash):
+        if no_to_keep < 0:
+            raise Exception("invalid number")
+        bakups = self.get_bak_list(False)
+
+        def _iter_dir(p):
+            for f in examine(p, exclude_hidden=False):
+                if os.path.isfile(f):
+                    if cal_hash:
+                        hashval = get_file_hash(f)
+                        yield f, hashval
+                    else:
+                        yield f
+
+        def _iter(cnt):
+            yield from _iter_dir(self.repofull)
+            if cnt > 0:
+                yield from _iter_dir(self.metapath)
+                for i in range(0, cnt):
+                    bak = bakups[i]
+                    bak_fullp = os.path.join(self.diffpath, bak)
+                    yield from _iter_dir(bak_fullp)
+
+        return _iter(no_to_keep)
 
     def _get_diff_bs(self, baknam, bak_section):
         try:

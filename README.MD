@@ -102,27 +102,28 @@ free software is _not_ free beer. i m self-employed as freelancer and need to li
 
 ## cmd line usage pybcpy
 
-    usage: python3 -m pybcpy [options] command [cmd-options] 
+    usage: python3 -m pybcpy [options]
 
     backup copy - utility for creating differential backups
 
     positional arguments:
-      {init,stat,bak,list,clean,repair}
+      {init,stat,bak,list,restore,clean,repair,inspect}
                             call pybcpy {command} --help for more
         init                init a backup repo
-        stat                show the differences for the repo without creating a
-                            new backup
+        stat                show the differences for the repo without creating a new backup
         bak                 create a new backup for the repo
         list                list the available backups
+        restore             restore file from repo/ backup
         clean               cleans the backup by removing older backups
         repair              repair the repo index and set the repo active again
+        inspect             inspect the bakup repo and differences. list all files within the inspect range.
 
     optional arguments:
       -h, --help            show this help message and exit
       -v, --version         show version info and exit
       -V, --verbose         show more info
       -D, --debug           show debug info
-      -p POOL, --pool POOL  number of parallel processes to run where appicable
+      -p POOL, --pool POOL  number of parallel processes to run where aplicable
       -repo REPO            repo path where backup is stored, (default: .)
 
     for more information refer to https://github.com/kr-g/pybcpy

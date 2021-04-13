@@ -250,6 +250,17 @@ def cmd_repair(args):
     print("total files in index", len(bak_dict), ", time used", duration, "sec")
 
 
+def cmd_inspect(args):
+    dbak = get_dbak_from_repo(args)
+    inc_cnt = args.include
+    files = dbak.inspect_bak(inc_cnt, args.hash)
+    for f in files:
+        if type(f) == tuple:
+            print(f[0], f[1])
+        else:
+            print(f)
+
+
 def main_func():
 
     parser = argparse.ArgumentParser(
@@ -420,6 +431,26 @@ def main_func():
         "repair", help="repair the repo index and set the repo active again"
     )
     parser_repair.set_defaults(func=cmd_repair)
+
+    parser_inspect = subparsers.add_parser(
+        "inspect",
+        help="inspect the bakup repo and differences. list all files within the inspect range.",
+    )
+    parser_inspect.add_argument(
+        "-include",
+        "-inc",
+        "-i",
+        type=int,
+        help="number of backups to inspect, and list on stdout, default: %(default)s)",
+        default=5,
+    )
+    parser_inspect.add_argument(
+        "-hash",
+        action="store_true",
+        help="calculate and include hash in output, default: %(default)s)",
+        default=False,
+    )
+    parser_inspect.set_defaults(func=cmd_inspect)
 
     args = parser.parse_args()
     if args.verbose:
