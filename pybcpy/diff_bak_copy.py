@@ -563,8 +563,8 @@ class DiffBackup(PrintInfo):
 
         def _iter(cnt):
             yield from _iter_dir(self.repofull)
+            yield from _iter_dir(self.metapath)
             if cnt > 0:
-                yield from _iter_dir(self.metapath)
                 for i in range(0, cnt):
                     bak = bakups[i]
                     bak_fullp = os.path.join(self.diffpath, bak)
