@@ -441,8 +441,8 @@ def main_func():
         "-inc",
         "-i",
         type=int,
-        help="number of backups to inspect, and list on stdout, default: %(default)s)",
-        default=5,
+        help="number of backups to inspect, and list on stdout. value of 0 lists repo only. default: %(default)s)",
+        default=0,
     )
     parser_inspect.add_argument(
         "-hash",
