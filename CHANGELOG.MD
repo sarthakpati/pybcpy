@@ -7,11 +7,11 @@
   - for use with tar e.g. `pybcpy -repo your_repo inspect -include 1 | tar -cf yourarchive.tar -T -`
 
 
-## release v0.0.13
 
-- added "include_all" feature in config for backup also hidden "." dot-files
+## KNOWN BUGS
+
+- delete dir in repo fails when not empty
 - 
-
 
 ## BACKLOG
 
@@ -20,6 +20,12 @@
 - catch exception for intermediate deleted files during bak process
 - stats also for other tasks
 - partial backup -> inner sub folder
+- 
+
+
+## release v0.0.13
+
+- added "include_all" feature in config for backup also hidden "." dot-files
 - 
 
 
