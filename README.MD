@@ -68,11 +68,8 @@ Experimental prototype for evaluating the further efforts of a backup tool
 # Support and Donnation
 
 if you like the tool and want to support the next version,
-or buy me a coffee - please make a donation:
-
-EURO | USD |
------|-----|
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/krgo) | [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/krgo) |
+or buy me a coffee - please make a donation with 
+[github sponsors](https://github.com/sponsors/kr-g/)
 
 
 # License
@@ -94,8 +91,6 @@ or clarify license related questions.
  
 for general license information refer to the pybcpy github repo under
 (https://github.com/kr-g/pybcpy/), or (https://github.com/kr-g/pybcpy/blob/master/LICENSE)
-
-free software is _not_ free beer. i m self-employed as freelancer and need to live from that money. 
 
 
 # cmd line summary
