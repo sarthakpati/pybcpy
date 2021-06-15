@@ -4,13 +4,7 @@
 
 ## next release v0.0.15
 
--
-
-
-## release v0.0.14
-
-- added `inspect` sub-cmd
-  - for use with tar e.g. `pybcpy -repo your_repo inspect -include 1 | tar -cf yourarchive.tar -T -`
+- fixed pypi package upload 
 - 
 
 
@@ -26,6 +20,14 @@
 - catch exception for intermediate deleted files during bak process
 - stats also for other tasks
 - partial backup -> inner sub folder
+- 
+
+
+
+## release v0.0.14
+
+- added `inspect` sub-cmd
+  - for use with tar e.g. `pybcpy -repo your_repo inspect -include 1 | tar -cf yourarchive.tar -T -`
 - 
 
 
