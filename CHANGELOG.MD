@@ -1,11 +1,11 @@
 
 # Changelog
 
-## next release v0.0.14
+## release v0.0.14
 
 - added `inspect` sub-cmd
   - for use with tar e.g. `pybcpy -repo your_repo inspect -include 1 | tar -cf yourarchive.tar -T -`
-
+- 
 
 
 ## KNOWN BUGS
