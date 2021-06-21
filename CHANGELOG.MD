@@ -2,9 +2,9 @@
 # Changelog
 
 
-## next release v0.0.15
+## next release v0.0.16
 
-- fixed pypi package upload 
+- fixed continue copy in error case, report error
 - 
 
 
@@ -22,6 +22,12 @@
 - partial backup -> inner sub folder
 - 
 
+
+
+## release v0.0.15
+
+- fixed pypi package upload 
+- 
 
 
 ## release v0.0.14

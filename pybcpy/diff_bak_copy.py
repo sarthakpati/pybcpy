@@ -219,17 +219,24 @@ class DiffBackup(PrintInfo):
         relnam = f[len(self.srcpath) + 1 :]  # remove leading path and os.sep
         dest_path = os.path.join(self.repofull, relnam)
 
-        st = get_file_info(f)
-        if not stat.S_ISREG(st.st_mode):
-            self.print_d(f"skipping directory {f}")
-            return None
+        try:
+            st = get_file_info(f)
+            if not stat.S_ISREG(st.st_mode):
+                self.print_d(f"skipping directory {f}")
+                return None
 
-        self.print_v(f"copy {f} -> {dest_path}")
-        ensure_dest_dir(dest_path)
-        shutil.copy2(f, dest_path)
-        # self.log( f"done {f}" )
+            self.print_v(f"copy {f} -> {dest_path}")
+            ensure_dest_dir(dest_path)
+            shutil.copy2(f, dest_path)
+            # self.log( f"done {f}" )
 
-        return f
+            return f
+
+        except Exception as ex:
+            ## todo add to error list
+            self.print_e(f"copy {f} -> {dest_path}", ex)
+
+        return None
 
     def init_backup_repo(self, tarmode=False):
 
