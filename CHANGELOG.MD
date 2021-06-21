@@ -4,7 +4,9 @@
 
 ## next release v0.0.16
 
-- fixed continue copy in error case, report error
+- fixed continue init copy in error case, report error
+- changed internal backup-set structure from csv to json 
+ (each line is separate json represented object)
 - 
 
 

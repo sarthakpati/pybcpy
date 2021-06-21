@@ -1,7 +1,8 @@
 import uuid
 import stat
+import json
 
-from .file_utils import get_file_info, get_file_hash
+from pybcpy.file_utils import get_file_info, get_file_hash
 
 
 class BackupFileInfo(object):
@@ -43,6 +44,10 @@ class BackupFileInfo(object):
 
     def from_list(v, self):  # this is not a bug
         v.fnam, v.id, v.mode, v.size, v.atime, v.mtime, v.ctime, v.hash = self
+        v._patch_vals()
+        return self
+
+    def _patch_vals(v):
         v.mode = int(v.mode)
         v.size = int(v.size)
         v.atime = float(v.atime)
@@ -52,9 +57,37 @@ class BackupFileInfo(object):
         if len(v.hash) == 0:
             v.hash = None
 
+    def _attr_iter(self):
+        for n in [
+            "fnam",
+            "id",
+            "mode",
+            "size",
+            "atime",
+            "mtime",
+            "ctime",
+            "hash",
+        ]:
+            yield n
+
+    def from_json(self, jstr):
+        if jstr.strip().find("#") == 0:
+            return None
+        o = json.loads(jstr)
+        for n in self._attr_iter():
+            setattr(self, n, o[n])
+        self._patch_vals()
         return self
 
+    def to_dict(self):
+        o = {}
+        for n in self._attr_iter():
+            o[n] = getattr(self, n)
+        return o
+
     def __eq__(self, other):
+        if type(self) != type(other):
+            return False
         res = (
             self.fnam == other.fnam and self.hash == other.hash and self.id == other.id
         )

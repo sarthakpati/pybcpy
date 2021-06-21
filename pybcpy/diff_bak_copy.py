@@ -7,6 +7,8 @@ import time
 import uuid
 
 import csv
+import json
+
 import shutil
 from multiprocessing import Pool
 import configparser
@@ -64,6 +66,9 @@ CFG_ALL_FILES_Default = False
 DELIMITER = "\t"
 BACKUP_NAME_DELIMITER = "_"
 BACKUP_PREFIX = "bak_"
+
+VERSION_PATTERN = "## version:"
+VERSION_USED = 2
 
 
 class NoRepoDirectoryException(Exception):
@@ -293,14 +298,49 @@ class DiffBackup(PrintInfo):
         if metafile == None:
             metafile = os.path.join(self.metapath, META_FILE)
         ensure_dest_dir(metafile)
-        with open(metafile, writemode, newline="") as f:
-            writer = csv.writer(f, delimiter=DELIMITER)
-            writer.writerows(DiffBackup._expand_dict(bak_dict))
+
+        with open(metafile, writemode) as f:
+            f.write(VERSION_PATTERN)
+            f.write(str(VERSION_USED))
+            f.write("\n")
+            for _k, bi in bak_dict.items():
+                d = bi.to_dict()
+                jstr = json.dumps(d)
+                f.write(jstr)
+                f.write("\n")
 
     def read_backup_summary(self, metafile=None):
         self.print_d("read_backup_summary")
         if metafile == None:
             metafile = os.path.join(self.metapath, META_FILE)
+
+        version = self.get_summary_version(metafile)
+        # self.print("read_backup_summary version", version)
+
+        if version == 1:
+            backup_info = self.__read_backup_summary_v1(metafile)
+        elif version == 2:
+            backup_info = self.__read_backup_summary_v2(metafile)
+        else:
+            raise Exception("internal error")
+
+        return backup_info
+
+    def get_summary_version(self, metafile):
+        version = 1
+        try:
+            with open(metafile, "r") as f:
+                line = f.readline().strip().lower()
+                if line.find(VERSION_PATTERN) == -1:
+                    raise Exception("backup_summary version not found")
+                version = int(line[len(VERSION_PATTERN) :])
+                if version <= 0:
+                    raise Exception("invalid version number")
+        except Exception as ex:
+            self.print_d("read backup_summary, defaulting version to 1", ex)
+        return version
+
+    def __read_backup_summary_v1(self, metafile):
         backup_info = {}
         with open(metafile, "r", newline="") as f:
             reader = csv.reader(f, delimiter=DELIMITER)
@@ -309,6 +349,20 @@ class DiffBackup(PrintInfo):
                 bi.from_list(row)
                 # add to result list
                 backup_info[bi.fnam] = bi
+        return backup_info
+
+    def __read_backup_summary_v2(self, metafile):
+        backup_info = {}
+        with open(metafile, "r") as f:
+            while True:
+                line = f.readline()
+                if line == "":
+                    break
+                bi = BackupFileInfo()
+                bi = bi.from_json(line)
+                # add to result list
+                if bi != None:
+                    backup_info[bi.fnam] = bi
         return backup_info
 
     def get_unique_backup_name(self):

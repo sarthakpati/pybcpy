@@ -80,7 +80,7 @@ class PrintInfo(object):
         _ident = ""
         for a in args:
             s.write(_ident)
-            s.write(a)
+            s.write(str(a))
             _ident = end
 
         return s.getvalue()
