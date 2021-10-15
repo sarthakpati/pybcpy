@@ -2,8 +2,13 @@ import setuptools
 import os
 import re
 
-with open("README.MD", "r") as fh:
-    long_description = fh.read()
+
+try:
+    with open("README.MD", "r") as fh:
+        long_description = fh.read()
+except Exception as error:
+    long_description = ""
+    sys.stderr.write("Warning: Could not open '%s' due %s\n" % (filepath, error))
 
 
 def find_version(fnam, version="VERSION"):
