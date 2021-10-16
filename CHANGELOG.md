@@ -2,12 +2,14 @@
 # Changelog
 
 
-## next release v0.0.16
+## release v0.0.16
 
 - fixed continue init copy in error case, report error
 - changed internal backup-set structure from csv to json 
  (each line is separate json represented object)
-- 
+- added MANIFEST file for missing markdown files 
+ https://github.com/kr-g/pybcpy/issues/1
+-
 
 
 ## KNOWN BUGS
