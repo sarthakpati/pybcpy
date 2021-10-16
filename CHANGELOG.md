@@ -12,22 +12,6 @@
 -
 
 
-## KNOWN BUGS
-
-- delete dir in repo fails when not empty
-- 
-
-## BACKLOG
-
-- quite mode
-- rework logging info, level, and behaviour
-- catch exception for intermediate deleted files during bak process
-- stats also for other tasks
-- partial backup -> inner sub folder
-- 
-
-
-
 ## release v0.0.15
 
 - fixed pypi package upload 
