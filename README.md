@@ -42,7 +42,7 @@ only works on Linux, or Unix, or Posix
 
 Alpha state, use on your own risk!!!
 
-read [`CHANGELOG`](https://github.com/kr-g/pybcpy/blob/master/CHANGELOG.MD)
+read [`CHANGELOG`](https://github.com/kr-g/pybcpy/blob/master/CHANGELOG.md)
 for latest, or upcoming news.
 
 Experimental prototype for evaluating the further efforts of a backup tool
@@ -50,19 +50,8 @@ Experimental prototype for evaluating the further efforts of a backup tool
 
 # Limitations
 
-- proper testing pending. if execution breaks please create an issue on github.
-- proper error messages, read exception error text properly
-- no grafical (GUI) tool available, only cmd-line.
-- ~~no restore supported as of now.~~
-- no restore from a tar-mode backup repo
-- tar mode is added as experimental feature (might be dropped in future)
-- no full support of empty directories.
-- no logging to syslog.
-- ~~no support of permission objects e.g. ACLs, or Groups.~~
-- no file chunk difference calculation for big files.
-- no SSH, FTP, HTTP support. use of mounted device only.
-- no support for excluding sub-directories.
-- no root directory backup support.
+read [`BACKLOG`](https://github.com/kr-g/pybcpy/blob/master/BACKLOG.md)
+for latest, or upcoming news.
 
 
 # Support and Donnation
