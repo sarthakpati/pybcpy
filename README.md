@@ -31,10 +31,10 @@ cmd line usage of all tools described below.
 
 Mostly Platform indepentend. Tested on Python3, and Linux.
 
-[`acl-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pyacltk)
+[`acl-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pybcpy/pyacltk)
 only works on Linux, or Unix, or Posix
 
-[`usergroup-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pyusrgrptk)
+[`usergroup-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pybcpy/pyusrgrptk)
 only works on Linux, or Unix, or Posix
 
 
