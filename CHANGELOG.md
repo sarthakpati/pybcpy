@@ -2,34 +2,29 @@
 # Changelog
 
 
-## next release v0.0.16
+## release v0.0.17
+
+- refact package structure, some tools are now sub-packages to pybcpy
+  - pyacltk => pybcpy.pyacltk
+  - pyusrgrptk => pybcpy.pyusrgrptk
+- entry point for pybcpy (refer to `setup.cfg`)
+-
+
+
+## release v0.0.16
 
 - fixed continue init copy in error case, report error
 - changed internal backup-set structure from csv to json 
  (each line is separate json represented object)
-- 
-
-
-## KNOWN BUGS
-
-- delete dir in repo fails when not empty
-- 
-
-## BACKLOG
-
-- quite mode
-- rework logging info, level, and behaviour
-- catch exception for intermediate deleted files during bak process
-- stats also for other tasks
-- partial backup -> inner sub folder
-- 
-
+- added MANIFEST file for missing markdown files 
+ https://github.com/kr-g/pybcpy/issues/1
+-
 
 
 ## release v0.0.15
 
 - fixed pypi package upload 
-- 
+-
 
 
 ## release v0.0.14

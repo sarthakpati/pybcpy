@@ -31,10 +31,10 @@ cmd line usage of all tools described below.
 
 Mostly Platform indepentend. Tested on Python3, and Linux.
 
-[`acl-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pyacltk)
+[`acl-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pybcpy/pyacltk)
 only works on Linux, or Unix, or Posix
 
-[`usergroup-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pyusrgrptk)
+[`usergroup-toolkit`](https://github.com/kr-g/pybcpy/tree/master/pybcpy/pyusrgrptk)
 only works on Linux, or Unix, or Posix
 
 
@@ -42,7 +42,7 @@ only works on Linux, or Unix, or Posix
 
 Alpha state, use on your own risk!!!
 
-read [`CHANGELOG`](https://github.com/kr-g/pybcpy/blob/master/CHANGELOG.MD)
+read [`CHANGELOG`](https://github.com/kr-g/pybcpy/blob/master/CHANGELOG.md)
 for latest, or upcoming news.
 
 Experimental prototype for evaluating the further efforts of a backup tool
@@ -50,19 +50,8 @@ Experimental prototype for evaluating the further efforts of a backup tool
 
 # Limitations
 
-- proper testing pending. if execution breaks please create an issue on github.
-- proper error messages, read exception error text properly
-- no grafical (GUI) tool available, only cmd-line.
-- ~~no restore supported as of now.~~
-- no restore from a tar-mode backup repo
-- tar mode is added as experimental feature (might be dropped in future)
-- no full support of empty directories.
-- no logging to syslog.
-- ~~no support of permission objects e.g. ACLs, or Groups.~~
-- no file chunk difference calculation for big files.
-- no SSH, FTP, HTTP support. use of mounted device only.
-- no support for excluding sub-directories.
-- no root directory backup support.
+read [`BACKLOG`](https://github.com/kr-g/pybcpy/blob/master/BACKLOG.md)
+for latest, or upcoming news.
 
 
 # Support and Donnation
@@ -133,7 +122,7 @@ each command offers specific help info. display with `-h` option
 
 ## cmd line usage acl toolkit 
 
-    usage: python3 -m pyacltk [options]
+    usage: python3 -m pybcpy.pyacltk [options]
 
     acl toolkit - tool for manage ACL (access control list)
 
@@ -153,7 +142,7 @@ each command offers specific help info. display with `-h` option
 
 ## cmd line usage user-group toolkit 
 
-    usage: python3 -m pyusrgrptk [options]
+    usage: python3 -m pybcpy.pyusrgrptk [options]
 
     user group toolkit - tool for tracking user group changes output format is in
     detail mode: <group-name> <tab> <comma-separated-user-list>. in normal mode

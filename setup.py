@@ -2,13 +2,8 @@ import setuptools
 import os
 import re
 
-
-try:
-    with open("README.MD", "r") as fh:
-        long_description = fh.read()
-except Exception as error:
-    long_description = ""
-    sys.stderr.write("Warning: Could not open '%s' due %s\n" % (filepath, error))
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 
 def find_version(fnam, version="VERSION"):
@@ -29,8 +24,8 @@ def find_projectname():
     return name
 
 
-projectname = "pybcpy"
-file = os.path.join(projectname, "__main__.py")
+projectname = find_projectname()
+file = os.path.join(projectname, "__init__.py")
 version = find_version(file)
 
 setuptools.setup(
