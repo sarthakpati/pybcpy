@@ -23,8 +23,14 @@ def find_version(fnam, version="VERSION"):
     return match.group(1)
 
 
+def find_projectname():
+    cwd = os.getcwd()
+    name = os.path.basename(cwd)
+    return name
+
+
 projectname = "pybcpy"
-file = os.path.join("./pybcpy/__main__.py")
+file = os.path.join(projectname, "__main__.py")
 version = find_version(file)
 
 setuptools.setup(
