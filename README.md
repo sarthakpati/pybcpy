@@ -122,7 +122,7 @@ each command offers specific help info. display with `-h` option
 
 ## cmd line usage acl toolkit 
 
-    usage: python3 -m pyacltk [options]
+    usage: python3 -m pybcpy.pyacltk [options]
 
     acl toolkit - tool for manage ACL (access control list)
 
@@ -142,7 +142,7 @@ each command offers specific help info. display with `-h` option
 
 ## cmd line usage user-group toolkit 
 
-    usage: python3 -m pyusrgrptk [options]
+    usage: python3 -m pybcpy.pyusrgrptk [options]
 
     user group toolkit - tool for tracking user group changes output format is in
     detail mode: <group-name> <tab> <comma-separated-user-list>. in normal mode

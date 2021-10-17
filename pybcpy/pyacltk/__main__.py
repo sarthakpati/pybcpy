@@ -2,7 +2,7 @@ import os
 
 import argparse
 
-from pybcpy.__main__ import VERSION, VERSION_add
+from pybcpy import VERSION, VERSION_add
 from pybcpy.file_utils import get_file_exists
 
 from .flat import ACLfile

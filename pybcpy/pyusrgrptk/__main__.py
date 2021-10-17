@@ -1,6 +1,6 @@
 import argparse
 
-from pybcpy.__main__ import VERSION, VERSION_add
+from pybcpy import VERSION, VERSION_add
 
 from .usrgrptk import GroupRepo, dumps
 

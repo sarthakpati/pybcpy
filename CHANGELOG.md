@@ -2,6 +2,15 @@
 # Changelog
 
 
+## release v0.0.17
+
+- refact package structure, some tools are now sub-packages to pybcpy
+  - pyacltk => pybcpy.pyacltk
+  - pyusrgrptk => pybcpy.pyusrgrptk
+- entry point for pybcpy (refer to `setup.cfg`)
+-
+
+
 ## release v0.0.16
 
 - fixed continue init copy in error case, report error
@@ -15,7 +24,7 @@
 ## release v0.0.15
 
 - fixed pypi package upload 
-- 
+-
 
 
 ## release v0.0.14
